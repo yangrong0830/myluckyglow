@@ -443,7 +443,10 @@
     </div>
 
     <!-- Share -->
-    <button class="btn-share-simple fade-up" style="animation-delay:0.27s;" onclick="shareReading()">💕 Share My Reading</button>
+    <div class="fade-up" style="animation-delay:0.27s;margin-bottom:14px;">
+      <button class="btn-share-simple" id="btn-share" onclick="shareReading()">📋 Copy My Reading Link</button>
+      <p style="text-align:center;font-size:12px;color:#9d77c9;margin-top:8px;">Tap to copy · then paste into WhatsApp, Instagram, or any message</p>
+    </div>
 
     <!-- Lucky Charms -->
     <div class="card fade-up" style="animation-delay:0.30s;">
@@ -1239,17 +1242,22 @@ function countUp(id,from,to,ms){
 // ═══════════════════════════════════════════════════════
 
 function shareReading(){
-  const mySign  = $('z-name').textContent;
-  const topSign = $('hero-name').textContent;
-  const score   = $('hero-score-num').textContent;
-  const text    = `💕 I'm ${mySign} and my #1 love match today is ${topSign} — ${score}/100! ✨ Get your free daily reading 👉 ${location.href}`;
-  if(navigator.share){
-    navigator.share({title:'My LuckyGlow Love Reading', text, url:location.href}).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(text)
-      .then(()=>showToast('Copied! Share it with your friends 💕'))
-      .catch(()=>showToast('Share your reading with friends! ✨'));
-  }
+  const month = $('sel-month').value;
+  const day   = $('sel-day').value;
+  const base  = location.origin + location.pathname;
+  const shareURL = `${base}?month=${month}&day=${day}`;
+  const btn = $('btn-share');
+
+  navigator.clipboard.writeText(shareURL)
+    .then(()=>{
+      btn.textContent = '✅ Link Copied!';
+      showToast('Link copied! Paste it into WhatsApp, Instagram, or any message 💕');
+      setTimeout(()=>{ btn.textContent = '📋 Copy My Reading Link'; }, 2500);
+    })
+    .catch(()=>{
+      // fallback for browsers that block clipboard
+      prompt('Copy this link and paste it anywhere:', shareURL);
+    });
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1317,6 +1325,17 @@ function $(id){return document.getElementById(id);}
 populateSelects();
 buildStars();
 restoreSaved();
+
+// Auto-run reading if URL contains ?month=&day= (shared link)
+(function(){
+  const p = new URLSearchParams(location.search);
+  const m = p.get('month'), d = p.get('day');
+  if(m && d){
+    $('sel-month').value = m;
+    $('sel-day').value   = d;
+    revealLuck();
+  }
+})();
 </script>
 </body>
 </html>
