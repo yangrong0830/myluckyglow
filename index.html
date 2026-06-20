@@ -1248,16 +1248,36 @@ function shareReading(){
   const shareURL = `${base}?month=${month}&day=${day}`;
   const btn = $('btn-share');
 
-  navigator.clipboard.writeText(shareURL)
-    .then(()=>{
-      btn.textContent = '✅ Link Copied!';
-      showToast('Link copied! Paste it into WhatsApp, Instagram, or any message 💕');
-      setTimeout(()=>{ btn.textContent = '📋 Copy My Reading Link'; }, 2500);
-    })
-    .catch(()=>{
-      // fallback for browsers that block clipboard
-      prompt('Copy this link and paste it anywhere:', shareURL);
-    });
+  function onCopied(){
+    btn.textContent = '✅ Link Copied!';
+    showToast('Link copied! Paste it into WhatsApp, Instagram, or any message 💕');
+    setTimeout(()=>{ btn.textContent = '📋 Copy My Reading Link'; }, 2500);
+  }
+
+  // Method 1: modern clipboard API
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(shareURL).then(onCopied).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+
+  function fallbackCopy(){
+    // Method 2: create a hidden input, select it, copy
+    const el = document.createElement('textarea');
+    el.value = shareURL;
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    try {
+      const ok = document.execCommand('copy');
+      document.body.removeChild(el);
+      if(ok){ onCopied(); } else { prompt('Copy this link:', shareURL); }
+    } catch(e){
+      document.body.removeChild(el);
+      prompt('Copy this link:', shareURL);
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════
