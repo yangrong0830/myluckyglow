@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyGlow ✨ – Daily Love & Luck Reading</title>
+  <meta name="description" content="Enter your birthday and discover who you're most compatible with today. Daily relationship rankings, love luck scores, and cosmic readings for all zodiac signs.">
+  <meta property="og:title" content="LuckyGlow – Who's Your Best Match Today?">
+  <meta property="og:description" content="Find out which zodiac sign you're most compatible with today. Free daily love ranking + luck scores for love, money, career & health.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --rose: #f43f5e;
+      --gold: #f59e0b;
+      --silver: #94a3b8;
+      --bronze: #b45309;
+      --soft-purple: #ede9fe;
+      --soft-pink: #fce7f3;
+      --dark: #1e1b4b;
+      --medium: #6d28d9;
+      --light-text: #7c6b9e;
+      --card-bg: rgba(255,255,255,0.62);
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(145deg, #f3e8ff 0%, #fce7f3 45%, #e0e7ff 100%);
+      background-attachment: fixed;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── Stars ── */
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .star {
+      position: absolute; border-radius: 50%;
+      background: rgba(139,92,246,0.22);
+      animation: twinkle var(--dur,3s) ease-in-out infinite; opacity: 0;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity:0; transform:scale(0.7); }
+      50%      { opacity:var(--op,0.5); transform:scale(1.3); }
+    }
+
+    /* ── Layout ── */
+    .container { max-width:480px; margin:0 auto; padding:0 18px 80px; position:relative; z-index:1; }
+
+    /* ── Logo ── */
+    .logo { text-align:center; padding-top:40px; margin-bottom:6px; }
+    .logo-text {
+      font-family:'Playfair Display',serif; font-size:30px; font-weight:700;
+      background:linear-gradient(135deg,var(--purple),var(--pink));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .logo-tagline { font-size:12px; color:var(--light-text); letter-spacing:2.5px; text-transform:uppercase; margin-top:4px; }
+
+    /* ── Card ── */
+    .card {
+      background:var(--card-bg); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      border-radius:26px; padding:26px 24px;
+      border:1px solid rgba(255,255,255,0.75);
+      box-shadow:0 6px 30px rgba(139,92,246,0.10);
+      margin-bottom:14px;
+    }
+
+    /* ── AdSense ── */
+    .ad-slot {
+      background:rgba(255,255,255,0.35); border:1.5px dashed rgba(139,92,246,0.2);
+      border-radius:16px; height:90px; display:flex; align-items:center;
+      justify-content:center; color:rgba(124,107,158,0.35);
+      font-size:11px; margin-bottom:14px; letter-spacing:1px; text-transform:uppercase;
+    }
+
+    /* ════ LANDING ════ */
+    .landing-title { font-family:'Playfair Display',serif; font-size:24px; line-height:1.35; text-align:center; color:var(--dark); margin-bottom:8px; }
+    .landing-sub   { font-size:14px; color:var(--light-text); text-align:center; line-height:1.65; margin-bottom:28px; }
+    .form-label    { display:block; font-size:12px; font-weight:700; color:var(--medium); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:10px; }
+    .date-row      { display:grid; grid-template-columns:1.4fr 1fr 1.4fr; gap:10px; margin-bottom:22px; }
+    .date-row select {
+      width:100%; padding:13px 8px;
+      border:2px solid rgba(139,92,246,0.18); border-radius:16px;
+      background:rgba(255,255,255,0.8);
+      font-family:'Nunito',sans-serif; font-size:14px; font-weight:600; color:var(--dark);
+      cursor:pointer; -webkit-appearance:none; appearance:none; text-align:center;
+      transition:border-color 0.2s, box-shadow 0.2s;
+    }
+    .date-row select:focus { outline:none; border-color:var(--purple); box-shadow:0 0 0 3px rgba(139,92,246,0.12); }
+    .btn-primary {
+      width:100%; padding:17px;
+      background:linear-gradient(135deg,var(--purple) 0%,var(--pink) 100%);
+      color:#fff; font-family:'Nunito',sans-serif; font-size:16px; font-weight:700;
+      border:none; border-radius:18px; cursor:pointer; letter-spacing:0.4px;
+      box-shadow:0 8px 22px rgba(139,92,246,0.32);
+      transition:transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover  { transform:translateY(-2px); box-shadow:0 12px 28px rgba(139,92,246,0.42); }
+    .btn-primary:active { transform:translateY(0); }
+    .trust-line { text-align:center; font-size:12px; color:var(--light-text); margin-top:12px; }
+    .how-card   { font-size:13.5px; color:var(--light-text); line-height:1.7; text-align:center; }
+    .how-card strong { color:var(--dark); }
+
+    /* ════ READING ════ */
+    #screen-reading { display:none; }
+
+    /* Zodiac header */
+    .zodiac-header { text-align:center; }
+    .zodiac-emoji  { font-size:52px; display:block; margin-bottom:8px; animation:float 3.5s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    .zodiac-name   { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--dark); }
+    .zodiac-meta   { font-size:12px; color:var(--light-text); margin-top:3px; }
+    .reading-date  { display:inline-block; margin-top:8px; font-size:12px; font-weight:700; color:var(--purple); background:var(--soft-purple); padding:4px 14px; border-radius:20px; }
+
+    /* Overall luck gauge */
+    .gauge-wrap  { display:flex; flex-direction:column; align-items:center; margin:18px 0 4px; }
+    .gauge-svg   { width:150px; height:150px; }
+    .gauge-track { fill:none; stroke:rgba(139,92,246,0.10); stroke-width:12; }
+    .gauge-fill  { fill:none; stroke:url(#gGrad); stroke-width:12; stroke-linecap:round; transition:stroke-dashoffset 1.6s cubic-bezier(0.22,1,0.36,1); }
+    .gauge-num   { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; fill:var(--dark); text-anchor:middle; dominant-baseline:middle; }
+    .gauge-sub   { font-family:'Nunito',sans-serif; font-size:11px; fill:var(--light-text); text-anchor:middle; dominant-baseline:middle; letter-spacing:1px; }
+    .luck-level  { font-family:'Playfair Display',serif; font-size:17px; font-style:italic; color:var(--purple); margin-top:5px; }
+
+    /* ─── HERO MATCH CARD ─── */
+    .hero-match-card {
+      background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 50%,#be185d 100%);
+      border-radius:26px; padding:28px 24px; margin-bottom:14px;
+      position:relative; overflow:hidden;
+      box-shadow:0 12px 40px rgba(139,92,246,0.35);
+    }
+    .hero-match-card::before {
+      content:''; position:absolute; inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='350' cy='50' r='120' fill='rgba(255,255,255,0.04)'/%3E%3Ccircle cx='50' cy='180' r='80' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") no-repeat;
+      pointer-events:none;
+    }
+    .hero-label {
+      font-size:11px; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:16px;
+    }
+    .hero-content { display:flex; align-items:center; gap:18px; }
+    .hero-sign-emoji { font-size:64px; line-height:1; flex-shrink:0; }
+    .hero-info { flex:1; }
+    .hero-sign-name {
+      font-family:'Playfair Display',serif; font-size:28px; font-weight:700;
+      color:#fff; line-height:1.1;
+    }
+    .hero-sign-sub { font-size:13px; color:rgba(255,255,255,0.65); margin-top:2px; }
+    .hero-note     { font-size:13px; color:rgba(255,255,255,0.85); margin-top:8px; font-style:italic; line-height:1.5; }
+    .hero-score-wrap { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
+    .hero-score-num  { font-family:'Playfair Display',serif; font-size:42px; font-weight:700; color:#fff; line-height:1; }
+    .hero-score-denom{ font-size:13px; color:rgba(255,255,255,0.6); }
+    .hero-score-bar  {
+      width:100%; height:6px; background:rgba(255,255,255,0.2);
+      border-radius:6px; overflow:hidden; margin-top:14px;
+    }
+    .hero-score-fill {
+      height:100%; border-radius:6px; width:0%;
+      background:linear-gradient(90deg,#fbbf24,#f472b6);
+      transition:width 1.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .self-badge {
+      display:inline-block; margin-top:6px; font-size:11px;
+      background:rgba(255,255,255,0.2); color:rgba(255,255,255,0.9);
+      padding:2px 10px; border-radius:20px; letter-spacing:0.5px;
+    }
+
+    /* ─── RANKING LIST ─── */
+    .section-label {
+      font-size:11px; font-weight:700; text-transform:uppercase;
+      letter-spacing:1.5px; color:var(--light-text); margin-bottom:16px;
+    }
+    .rank-list { display:flex; flex-direction:column; gap:8px; }
+    .rank-item {
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:16px;
+      background:rgba(255,255,255,0.5);
+      border:1px solid rgba(255,255,255,0.8);
+      transition:transform 0.15s;
+    }
+    .rank-item:hover { transform:translateX(3px); }
+    .rank-item.rank-top    { background:rgba(251,191,36,0.12); border-color:rgba(251,191,36,0.3); }
+    .rank-item.rank-good   { background:rgba(139,92,246,0.07); }
+    .rank-item.rank-low    { background:rgba(0,0,0,0.04); opacity:0.75; }
+    .rank-item.rank-self   { border:1.5px dashed rgba(236,72,153,0.4); background:rgba(236,72,153,0.05); }
+
+    .rank-num {
+      font-size:13px; font-weight:800; min-width:28px; text-align:center;
+      font-family:'Playfair Display',serif;
+    }
+    .rank-num.gold   { color:var(--gold); }
+    .rank-num.silver { color:var(--silver); }
+    .rank-num.bronze { color:var(--bronze); }
+    .rank-num.normal { color:var(--light-text); }
+
+    .rank-emoji { font-size:22px; flex-shrink:0; }
+    .rank-info  { flex:1; min-width:0; }
+    .rank-name  { font-size:14px; font-weight:700; color:var(--dark); }
+    .rank-note  { font-size:11px; color:var(--light-text); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+    .rank-score-col { display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; min-width:56px; }
+    .rank-score-num { font-size:14px; font-weight:800; color:var(--purple); }
+    .rank-bar-track { width:56px; height:5px; background:rgba(139,92,246,0.1); border-radius:5px; overflow:hidden; }
+    .rank-bar-fill  { height:100%; border-radius:5px; width:0%; transition:width 1.2s cubic-bezier(0.22,1,0.36,1); }
+    .fill-gold   { background:linear-gradient(90deg,#f59e0b,#fbbf24); }
+    .fill-good   { background:linear-gradient(90deg,#8b5cf6,#ec4899); }
+    .fill-mid    { background:linear-gradient(90deg,#a78bfa,#c4b5fd); }
+    .fill-low    { background:linear-gradient(90deg,#94a3b8,#cbd5e1); }
+
+    .tier-divider {
+      text-align:center; font-size:10px; font-weight:700;
+      letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--light-text); padding:4px 0; opacity:0.7;
+    }
+
+    /* ─── LUCK BARS ─── */
+    .bar-item { margin-bottom:14px; }
+    .bar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+    .bar-name  { font-size:14px; font-weight:600; color:var(--dark); }
+    .bar-score { font-size:13px; font-weight:700; color:var(--purple); }
+    .bar-track { height:9px; background:rgba(139,92,246,0.08); border-radius:9px; overflow:hidden; }
+    .bar-fill  { height:100%; border-radius:9px; width:0%; transition:width 1.3s cubic-bezier(0.22,1,0.36,1); }
+    .bl .bar-fill { background:linear-gradient(90deg,#f9a8d4,#ec4899); }
+    .bm .bar-fill { background:linear-gradient(90deg,#fcd34d,#f59e0b); }
+    .bc .bar-fill { background:linear-gradient(90deg,#93c5fd,#3b82f6); }
+    .bh .bar-fill { background:linear-gradient(90deg,#86efac,#22c55e); }
+
+    /* ─── MESSAGE ─── */
+    .message-text { font-family:'Playfair Display',serif; font-size:16px; line-height:1.75; color:var(--dark); font-style:italic; }
+
+    /* ─── CHARMS ─── */
+    .charms-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .charm { text-align:center; background:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.85); border-radius:16px; padding:12px 6px; }
+    .charm-icon  { font-size:20px; margin-bottom:4px; }
+    .charm-label { font-size:10px; text-transform:uppercase; letter-spacing:0.8px; color:var(--light-text); margin-bottom:3px; }
+    .charm-value { font-size:12px; font-weight:700; color:var(--dark); }
+
+    /* ─── TIP ─── */
+    .tip-emoji { font-size:22px; display:block; margin-bottom:8px; }
+    .tip-text  { font-size:14px; line-height:1.65; color:var(--dark); }
+
+    /* ─── BUTTONS ─── */
+    .btn-share {
+      width:100%; padding:15px;
+      background:rgba(255,255,255,0.7); color:var(--purple);
+      font-family:'Nunito',sans-serif; font-size:15px; font-weight:700;
+      border:2px solid rgba(139,92,246,0.28); border-radius:18px;
+      cursor:pointer; transition:background 0.15s,border-color 0.15s;
+      margin-bottom:10px;
+    }
+    .btn-share:hover { background:var(--soft-purple); border-color:var(--purple); }
+    .btn-reset {
+      display:block; width:100%; padding:12px;
+      background:transparent; color:var(--light-text);
+      font-family:'Nunito',sans-serif; font-size:14px; font-weight:600;
+      border:none; cursor:pointer; text-align:center;
+    }
+
+    /* ─── TOMORROW ─── */
+    .tomorrow-card  { text-align:center; }
+    .tomorrow-emoji { font-size:28px; display:block; margin-bottom:8px; }
+    .tomorrow-text  { font-size:13.5px; color:var(--light-text); line-height:1.65; }
+    .tomorrow-text strong { color:var(--purple); }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px);
+      background:var(--dark); color:white; padding:12px 22px; border-radius:30px;
+      font-size:13px; font-weight:600; z-index:999;
+      transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); white-space:nowrap;
+    }
+    .toast.show { transform:translateX(-50%) translateY(0); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up { animation:fadeUp 0.55s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ─── SHARE BUTTON ─── */
+    .btn-share-simple {
+      width:100%;padding:16px;margin-bottom:14px;
+      background:linear-gradient(135deg,#7c3aed,#be185d);
+      color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;
+      border:none;border-radius:18px;cursor:pointer;letter-spacing:0.3px;
+      box-shadow:0 6px 20px rgba(139,92,246,0.30);
+      transition:transform 0.15s,box-shadow 0.15s;
+    }
+    .btn-share-simple:hover  { transform:translateY(-2px);box-shadow:0 10px 26px rgba(139,92,246,0.40); }
+    .btn-share-simple:active { transform:translateY(0); }
+
+    @media(max-width:360px){
+      .container{padding:0 12px 70px}
+      .card{padding:20px 14px}
+      .logo-text{font-size:26px}
+      .charms-grid{grid-template-columns:repeat(2,1fr)}
+      .hero-score-num{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <!-- ════ LANDING ════ -->
+  <div id="screen-landing">
+    <div class="logo">
+      <div class="logo-text">✨ LuckyGlow</div>
+      <div class="logo-tagline">Daily Love &amp; Luck Reading</div>
+    </div>
+
+    <div class="card" style="margin-top:4px;">
+      <h1 class="landing-title">Who's your best match today? 💕</h1>
+      <p class="landing-sub">Enter your birthday to reveal your daily love ranking — see which zodiac signs you're most compatible with right now, and your full luck reading for today.</p>
+
+      <label class="form-label">Your Birthday</label>
+      <div class="date-row">
+        <select id="sel-month" aria-label="Month">
+          <option value="">Month</option>
+          <option value="1">January</option><option value="2">February</option>
+          <option value="3">March</option><option value="4">April</option>
+          <option value="5">May</option><option value="6">June</option>
+          <option value="7">July</option><option value="8">August</option>
+          <option value="9">September</option><option value="10">October</option>
+          <option value="11">November</option><option value="12">December</option>
+        </select>
+        <select id="sel-day"   aria-label="Day"><option value="">Day</option></select>
+      </div>
+      <button class="btn-primary" onclick="revealLuck()">💕 Reveal My Love Ranking</button>
+      <p class="trust-line">🔒 Free · Personal · Refreshes Every Midnight</p>
+    </div>
+
+    <div class="card how-card">
+      <strong>How it works:</strong> We detect your zodiac sign, then calculate today's cosmic energy between your sign and all 12 others — giving you a full love ranking updated daily. ✨
+    </div>
+
+    <!-- ADSENSE: replace with your ad code -->
+    <div class="ad-slot" style="margin-top:8px;">Advertisement</div>
+  </div>
+
+
+  <!-- ════ READING ════ -->
+  <div id="screen-reading">
+
+    <div class="logo" style="padding-top:20px;">
+      <div class="logo-text">✨ LuckyGlow</div>
+    </div>
+
+    <!-- ADSENSE: replace with your ad code -->
+    <div class="ad-slot" style="margin-top:12px;">Advertisement</div>
+
+    <!-- Zodiac + Overall Luck -->
+    <div class="card fade-up" style="animation-delay:0s;">
+      <div class="zodiac-header">
+        <span class="zodiac-emoji" id="z-emoji">🌟</span>
+        <div class="zodiac-name"  id="z-name">—</div>
+        <div class="zodiac-meta"  id="z-meta">—</div>
+        <div class="reading-date" id="z-date">Today</div>
+      </div>
+      <div class="gauge-wrap">
+        <svg class="gauge-svg" viewBox="0 0 150 150" aria-hidden="true">
+          <defs>
+            <linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#8b5cf6"/>
+              <stop offset="100%" style="stop-color:#ec4899"/>
+            </linearGradient>
+          </defs>
+          <!-- r=62 → circumference ≈ 389.6 -->
+          <circle class="gauge-track" cx="75" cy="75" r="62"/>
+          <circle class="gauge-fill" id="gauge-arc" cx="75" cy="75" r="62"
+            stroke-dasharray="389.6" stroke-dashoffset="389.6"
+            transform="rotate(-90 75 75)"/>
+          <text class="gauge-num" id="gauge-num" x="75" y="71">0</text>
+          <text class="gauge-sub" x="75" y="91">OVERALL LUCK</text>
+        </svg>
+        <div class="luck-level" id="luck-level">Reading your stars…</div>
+      </div>
+    </div>
+
+    <!-- ★ HERO: Today's Best Match ★ -->
+    <div class="hero-match-card fade-up" style="animation-delay:0.06s;" id="hero-card">
+      <div class="hero-label">💕 Today's Best Love Match</div>
+      <div class="hero-content">
+        <div class="hero-sign-emoji" id="hero-emoji">🌟</div>
+        <div class="hero-info">
+          <div class="hero-sign-name" id="hero-name">—</div>
+          <div class="hero-sign-sub"  id="hero-sub">—</div>
+          <div class="hero-note"      id="hero-note">—</div>
+          <span class="self-badge"    id="hero-self-badge" style="display:none;">💜 Self-Love Day</span>
+        </div>
+        <div class="hero-score-wrap">
+          <div class="hero-score-num" id="hero-score-num">0</div>
+          <div class="hero-score-denom">/100</div>
+        </div>
+      </div>
+      <div class="hero-score-bar">
+        <div class="hero-score-fill" id="hero-score-fill"></div>
+      </div>
+    </div>
+
+
+    <!-- Full Ranking -->
+    <div class="card fade-up" style="animation-delay:0.12s;">
+      <div class="section-label">🌹 All 12 Signs Ranked For You Today</div>
+      <div class="rank-list" id="rank-list">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+    <!-- Luck Breakdown -->
+    <div class="card fade-up" style="animation-delay:0.18s;">
+      <div class="section-label">Today's Luck Breakdown</div>
+      <div class="bar-item bl">
+        <div class="bar-header"><span class="bar-name">❤️ Love &amp; Relationships</span><span class="bar-score" id="sc-love">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bar-love"></div></div>
+      </div>
+      <div class="bar-item bm">
+        <div class="bar-header"><span class="bar-name">💰 Money &amp; Abundance</span><span class="bar-score" id="sc-money">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bar-money"></div></div>
+      </div>
+      <div class="bar-item bc">
+        <div class="bar-header"><span class="bar-name">💼 Career &amp; Success</span><span class="bar-score" id="sc-career">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bar-career"></div></div>
+      </div>
+      <div class="bar-item bh" style="margin-bottom:0;">
+        <div class="bar-header"><span class="bar-name">🌿 Health &amp; Vitality</span><span class="bar-score" id="sc-health">—</span></div>
+        <div class="bar-track"><div class="bar-fill" id="bar-health"></div></div>
+      </div>
+    </div>
+
+    <!-- Daily Message -->
+    <div class="card fade-up" style="animation-delay:0.24s;">
+      <div class="section-label" style="margin-bottom:12px;">✨ Today's Cosmic Message</div>
+      <div class="message-text" id="daily-msg">The stars are speaking…</div>
+      <div class="message-text" id="daily-insight" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(139,92,246,0.12);font-style:normal;color:#6b46c1;"></div>
+    </div>
+
+    <!-- Share -->
+    <button class="btn-share-simple fade-up" style="animation-delay:0.27s;" onclick="shareReading()">💕 Share My Reading</button>
+
+    <!-- Lucky Charms -->
+    <div class="card fade-up" style="animation-delay:0.30s;">
+      <div class="section-label" style="margin-bottom:14px;">🍀 Today's Lucky Charms</div>
+      <div class="charms-grid">
+        <div class="charm">
+          <div class="charm-icon">💞</div>
+          <div class="charm-label">Best Sign</div>
+          <div class="charm-value" id="lc-sign">—</div>
+        </div>
+        <div class="charm">
+          <div class="charm-icon">🎨</div>
+          <div class="charm-label">Color</div>
+          <div class="charm-value" id="lc-color">—</div>
+        </div>
+        <div class="charm">
+          <div class="charm-icon">🔢</div>
+          <div class="charm-label">Number</div>
+          <div class="charm-value" id="lc-number">—</div>
+        </div>
+        <div class="charm">
+          <div class="charm-icon">⏰</div>
+          <div class="charm-label">Best Time</div>
+          <div class="charm-value" id="lc-time">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tip -->
+    <div class="card fade-up" style="animation-delay:0.34s;">
+      <div class="section-label" style="margin-bottom:12px;">💫 Today's Love Tip</div>
+      <span class="tip-emoji" id="tip-emoji">🌸</span>
+      <div class="tip-text" id="daily-tip">—</div>
+    </div>
+
+    <!-- ADSENSE: replace with your ad code -->
+    <div class="ad-slot">Advertisement</div>
+
+<div class="card tomorrow-card fade-up" style="animation-delay:0.38s;">
+      <span class="tomorrow-emoji">🌙</span>
+      <div class="tomorrow-text">Rankings refresh every midnight.<br><strong>Bookmark this page</strong> and come back tomorrow — your matches will shift!</div>
+    </div>
+
+    <button class="btn-reset" onclick="resetToLanding()">← Check a different birthday</button>
+  </div>
+
+</div><!-- /container -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// SIGN DATA
+// ═══════════════════════════════════════════════════════
+const SIGNS = [
+  { name:'Aries',       emoji:'🐏', symbol:'♈', element:'Fire',  planet:'Mars',    range:'Mar 21–Apr 19',
+    colors:['Scarlet','Ruby Red','Burnt Orange','Golden Amber'],
+    messages:[
+      "Someone is thinking about you more than you know today, Aries. The stars are placing you at the center of someone's thoughts — open your heart to receiving.",
+      "Your bold energy is magnetic right now. A genuine connection could spark when you least expect it — stay open and present.",
+      "Love finds those who lead with courage. Step toward what — and who — excites you today. Hesitation is the only obstacle.",
+      "A relationship you've been nurturing is ready to bloom into something deeper. Trust the timing — it's finally right.",
+      "The universe is arranging an encounter. Say yes to the unexpected invitation today.",
+      "Your authenticity is your most attractive quality today. The right person sees exactly who you are.",
+      "Sometimes love is quieter than fireworks — today, let yourself notice the gentle, steady warmth around you.",
+      "Mars fires your confidence to new heights today, Aries. The move you've been debating? Make it.",
+      "Passion runs deep in you, and today it becomes a bridge to someone who matches your intensity.",
+      "A moment of honest eye contact or a single sincere word today can change everything.",
+      "Your energy doesn't need to be tamed for love — the right person is electrified by it.",
+      "Something clicked that didn't before. You see a connection in a whole new light today.",
+      "Chase joy today, not approval. Joy is the most irresistible thing you can wear.",
+      "You've been patient long enough. Today the stars say: go first.",
+      "A spark that seemed to fade quietly reignites. Don't overthink it — just feel it.",
+      "New beginnings are your natural territory. Something in love is very much beginning today.",
+    ],
+    tips:[
+      "Make the first move today — your confidence is irresistible right now.",
+      "Wear red or warm tones to attract positive romantic energy.",
+      "Share something real about yourself with someone you trust. Vulnerability creates connection.",
+      "Text the person you've been thinking about. The timing is better than you think.",
+      "Plan something spontaneous — adventure is your love language and it's calling.",
+      "Be honest about what you want in a relationship. Clarity is magnetic.",
+      "Give yourself grace today — love starts with loving yourself first.",
+    ],
+    tipEmojis:['💌','🌹','💬','📱','✈️','💡','🪞']
+  },
+  { name:'Taurus',      emoji:'🐂', symbol:'♉', element:'Earth', planet:'Venus',   range:'Apr 20–May 20',
+    colors:['Emerald','Rose Quartz','Sage Green','Champagne'],
+    messages:[
+      "Venus showers your love life with extra sweetness today, Taurus. A connection you've been nurturing is about to feel deeply rewarding.",
+      "Your loyalty and warmth are your most powerful love gifts. Someone close is quietly falling deeper for you.",
+      "Stability in love doesn't mean boring — it means safe enough to be fully yourself. That's your gift to give today.",
+      "A beautiful surprise is woven into today's fabric. Stay present and you won't miss it.",
+      "The person who deserves your heart will match your patience. Today brings evidence of exactly that.",
+      "Love is in the small details today — a lingering look, a thoughtful gesture, a moment of true presence.",
+      "Something you've been waiting for in your love life finally begins to shift today. Trust the process.",
+      "Your patience isn't passive — it's one of the most loving things you can offer. It's noticed today.",
+      "The senses are your gateway to love. A shared meal, a beautiful space, a favourite song — let them open you.",
+      "Slow love is still love. What's building quietly between you and someone is worth everything.",
+      "You don't need to rush what's already coming. Today confirms: it's on its way.",
+      "Someone respects how grounded you are. That reliability is more romantic than any grand gesture.",
+      "A tender moment arrives unexpectedly today. Let yourself be fully in it.",
+      "Your steadiness gives others the courage to love you. Today, someone takes that step.",
+      "What you've quietly tended is about to flower. Give it just a little more warmth today.",
+      "You deserve a love as beautiful and enduring as what you offer. Today, the universe agrees.",
+    ],
+    tips:[
+      "Create a beautiful, cozy atmosphere — romance flourishes in spaces you've lovingly crafted.",
+      "Cook for someone or share a meal — Taurus love language is nourishment.",
+      "Tell someone what you appreciate about them specifically. Sincerity melts walls.",
+      "Wear something that makes you feel beautiful today — confidence attracts.",
+      "Plan a slow, sensory date — art, food, nature. You thrive in beauty.",
+      "Let yourself receive affection without deflecting it today. You deserve it.",
+      "Write down what you truly want in a partner. Clarity calls it in.",
+    ],
+    tipEmojis:['🕯️','🍽️','💛','👗','🎨','🌸','✍️']
+  },
+  { name:'Gemini',      emoji:'👯', symbol:'♊', element:'Air',   planet:'Mercury', range:'May 21–Jun 20',
+    colors:['Sunshine Yellow','Lavender Mist','Sky Blue','Mint Green'],
+    messages:[
+      "Your wit and curiosity are irresistible today, Gemini. Someone is hanging on your every word — enjoy the spark.",
+      "A conversation today holds more than just words — there's real chemistry between the lines. Pay attention.",
+      "Love, for you, begins in the mind. Today's exchange of ideas could be the start of something unexpected.",
+      "Your social energy is magnetic right now. The person you're meant to meet today is closer than you think.",
+      "Don't overthink what you feel. Your heart actually knows — your mind is just catching up.",
+      "An unexpected message or encounter today carries romantic potential. Say yes to the detour.",
+      "The most meaningful connections often start as something light and playful. Enjoy where this one goes.",
+      "Your ability to make anyone feel interesting is a rare gift. Today, turn it toward someone special.",
+      "Two ideas spark in your mind today — one about love, one about life. They're related.",
+      "Mercury gives your words an extra charge. What you say today lands deeper than usual.",
+      "A playful exchange today has more layers than it appears. Read between the lines.",
+      "Your mind is your most seductive feature. Let it shine in full today.",
+      "Someone has been waiting for you to just say the thing. Today is the day.",
+      "A friendship has been quietly edging toward something more. Today, you both feel it.",
+      "You thrive on variety — and love with you is never boring. Someone is realising this with delight.",
+      "The conversation you least expect to matter today ends up meaning the most.",
+    ],
+    tips:[
+      "Send a witty, playful message to someone you're interested in. Your words are your superpower today.",
+      "Be genuinely curious about someone — ask the question you've been holding back.",
+      "Dress in something unexpected — surprise yourself and you'll surprise others.",
+      "Join a social event or group today. Your best matches are where ideas flow.",
+      "Don't ghost the conversation that's been lingering. Pick it back up today.",
+      "Tell someone exactly what you find fascinating about them. Specificity is a love language.",
+      "Turn off your phone for one hour with someone special. Presence is everything.",
+    ],
+    tipEmojis:['💬','🎯','✨','🌐','📱','💕','📵']
+  },
+  { name:'Cancer',      emoji:'🦀', symbol:'♋', element:'Water', planet:'Moon',    range:'Jun 21–Jul 22',
+    colors:['Pearl White','Sea Glass','Soft Blue','Moonstone'],
+    messages:[
+      "Your emotional depth is your greatest romantic gift, Cancer. The right person feels completely safe with you — and today, that bond deepens.",
+      "The Moon amplifies your intuition about love today. The feeling you keep pushing aside? It's pointing at something real.",
+      "A relationship you care about reaches a tender, beautiful turning point today. Let yourself lean into it.",
+      "Your capacity to love deeply is rare. Today, someone genuinely sees and treasures that about you.",
+      "Home is where love begins for you. Something warm and meaningful stirs in your closest relationships today.",
+      "Let yourself be cared for today, Cancer — not just care for others. Receiving is part of love too.",
+      "A memory or dream is guiding you toward something beautiful. Trust the quiet knowing.",
+      "The Moon is in your corner tonight. Whatever you feel most strongly about in love — trust it completely.",
+      "You don't have to protect your heart quite so fiercely today. What's coming in is safe.",
+      "Your intuition reads the room better than anyone. That quiet feeling about someone? It's accurate.",
+      "A small gesture of love you offer today becomes the thing someone remembers forever.",
+      "You nurture without being asked — and today, someone notices and loves you deeply for it.",
+      "The connection you're afraid to want is actually already forming. Let it.",
+      "Something tender is being said without words between you and someone important. Hear it.",
+      "Love doesn't always announce itself loudly. Today it whispers — and you're the one who hears it.",
+      "Your softness is your strength. Today it draws someone closer than any performance could.",
+    ],
+    tips:[
+      "Cook a meaningful meal for someone you love — it's your most powerful act of romance.",
+      "Create a cozy space for connection tonight — soft light, warmth, no distractions.",
+      "Tell someone how you really feel. Your words, when you share them, are deeply moving.",
+      "Reach out to someone from your past who has been on your mind.",
+      "Journal what kind of love you truly want to call in. Your heart knows precisely.",
+      "Plan a slow, intimate evening rather than something grand and overwhelming.",
+      "Practice self-compassion today — you give so much love. You deserve it too.",
+    ],
+    tipEmojis:['🍲','🕯️','💌','📞','📓','🌙','💜']
+  },
+  { name:'Leo',         emoji:'🦁', symbol:'♌', element:'Fire',  planet:'Sun',     range:'Jul 23–Aug 22',
+    colors:['Radiant Gold','Royal Amber','Sunset Orange','Champagne'],
+    messages:[
+      "You are absolutely radiant today, Leo — and someone in your orbit cannot look away. Let yourself be seen.",
+      "Love that's worthy of you is bold and generous. Today, both you and your match show up fully — it's electric.",
+      "Your warmth and magnetism are at a peak today. Whatever you give, it returns to you multiplied.",
+      "A grand romantic gesture — given or received — marks today as one to remember.",
+      "The love you desire begins with loving yourself completely. Today, you embody that truth beautifully.",
+      "Someone admires you more than they've said. Today, they may finally say it.",
+      "Lead with your heart today, not your pride. The most powerful love asks to be vulnerable.",
+      "The Sun is your ruling star and today it shines directly on your love life. Expect warmth everywhere.",
+      "You were made to be adored — and today the universe arranges exactly that. Receive it gracefully.",
+      "Your generosity in love is legendary. Someone is about to show you they've been paying attention.",
+      "There is nothing more attractive than someone fully at home in themselves. Today, that's you.",
+      "A creative act of love — something made, performed, or expressed — creates a moment neither of you forgets.",
+      "The person who can truly hold your heart is not intimidated by your light. Today, you find that out.",
+      "Love asks you to be brave, not perfect. Today, brave wins.",
+      "Your presence in a room changes its energy. Own that power with warmth today.",
+      "Something wonderful is in motion. It began when you chose to believe you deserved it.",
+    ],
+    tips:[
+      "Dress in your most confident, expressive outfit — you deserve to feel like royalty.",
+      "Plan something romantic and slightly theatrical — Leo love lives in memorable moments.",
+      "Compliment someone genuinely and watch the warmth it creates between you.",
+      "Share your creative work with someone special — vulnerability through art is deeply attractive.",
+      "Let yourself receive the admiration around you without deflecting it.",
+      "Write a heartfelt note — hand-written if possible. It will mean more than you expect.",
+      "Show up fully and authentically today. Your real self is your most magnetic version.",
+    ],
+    tipEmojis:['👑','🌹','💛','🎨','✨','✉️','🦁']
+  },
+  { name:'Virgo',       emoji:'🌾', symbol:'♍', element:'Earth', planet:'Mercury', range:'Aug 23–Sep 22',
+    colors:['Forest Green','Soft Navy','Warm Taupe','Dusty Sage'],
+    messages:[
+      "Love, for you, is in the details — and today those small, careful acts of devotion are noticed and deeply felt.",
+      "Your discernment is a strength, not a flaw. Today, trust the quiet voice that says this person is worth your heart.",
+      "Someone appreciates how thoughtful and genuine you are in ways they struggle to express. They feel it deeply.",
+      "A practical act of love today — solving, helping, showing up — means everything to the person who receives it.",
+      "You don't need to be perfect to be loved, Virgo. Today, someone loves you precisely as you are.",
+      "A relationship that has required patience begins to show you it was worth every careful step.",
+      "Your ability to see what others miss makes you an extraordinary partner. Today, that gift is recognized.",
+      "The love you offer is precise, devoted, and rare. Today, someone fully understands what they have in you.",
+      "Letting go of control in love is hard for you — but today, something lovely happens when you do.",
+      "Your quiet care for others speaks volumes. Someone hears every word today.",
+      "A small imperfection in love today turns out to be the most endearing thing either of you has shared.",
+      "You analyse so well — but some things are better felt than figured out. Today is one of them.",
+      "Your standards aren't too high. The right person is simply worth waiting to meet.",
+      "Something you've been quietly hoping for in love takes one clear step closer today.",
+      "The love you give so carefully is being returned with equal intention. Look up and see it.",
+      "Today the stars ask you to receive as graciously as you give. Let someone love you well.",
+    ],
+    tips:[
+      "Do one thoughtful, practical thing for someone you love today — it's louder than words.",
+      "Plan a meaningful date with attention to detail — the small touches make it unforgettable.",
+      "Let someone in past your carefully constructed walls today. It's safer than you think.",
+      "Write out what you truly want in love — Virgo clarity attracts exactly what you ask for.",
+      "Notice what lights up when you're with someone — trust that over logic today.",
+      "Release the need for perfection in love. Messy and real is infinitely more beautiful.",
+      "Take care of your body today — feeling good in your skin amplifies your natural magnetism.",
+    ],
+    tipEmojis:['🤲','🗂️','🚪','📝','✨','🌸','💆‍♀️']
+  },
+  { name:'Libra',       emoji:'⚖️', symbol:'♎', element:'Air',   planet:'Venus',   range:'Sep 23–Oct 22',
+    colors:['Blush Rose','Soft Lavender','Pale Ivory','Dusty Mauve'],
+    messages:[
+      "Venus governs your heart and today she is generous, Libra. Beauty, connection, and romantic possibility surround you.",
+      "Your charm opens hearts effortlessly today — but the deepest connection comes when you let someone see your real self.",
+      "A relationship approaches a beautiful balance point. What felt uncertain becomes clear and right.",
+      "Love and aesthetics are intertwined for you — today, beauty in any form opens your heart wider.",
+      "The partner you've been imagining is closer than you think. Open your eyes to who is already there.",
+      "Your fairness and thoughtfulness make you someone worth loving deeply. Today, that's reflected back to you.",
+      "An honest conversation today — one you've been putting off — leads to a profound and welcome shift.",
+      "You were made for partnership — and today, the stars align to remind you how natural love feels for you.",
+      "Beauty is your love language — create it today and someone will be moved.",
+      "Someone has been weighing something important about you. Today, the scales tip in love's favour.",
+      "Your ability to see all sides is a gift — use it to see all that's good in someone today.",
+      "The indecision lifts. What you want in love is suddenly, beautifully clear.",
+      "Harmony in love doesn't just happen — it's built. Today you lay a beautiful new layer.",
+      "Someone is captivated by the way you carry yourself. They just haven't said it yet.",
+      "The most romantic thing you can do today is fully decide. Commitment looks gorgeous on you.",
+      "A social setting today becomes unexpectedly meaningful. Stay a little longer than you planned.",
+    ],
+    tips:[
+      "Create beauty in your environment today — flowers, candles, music. Romance starts with atmosphere.",
+      "Reach out and make plans with someone special. Your initiative will delight them.",
+      "Wear something that makes you feel elegant and expressive today.",
+      "Say what you've been hinting at. Libra directness, delivered gracefully, is incredibly attractive.",
+      "Balance giving and receiving today — let yourself want something and ask for it.",
+      "A compliment given with genuine feeling creates a lasting bond. Give one today.",
+      "Make a decision you've been postponing about love. Clarity is more comfortable than suspense.",
+    ],
+    tipEmojis:['🌸','📅','💜','💬','⚖️','💕','🎯']
+  },
+  { name:'Scorpio',     emoji:'🦂', symbol:'♏', element:'Water', planet:'Pluto',   range:'Oct 23–Nov 21',
+    colors:['Deep Burgundy','Midnight Navy','Rich Crimson','Forest Shadow'],
+    messages:[
+      "Intensity is your love language, Scorpio — and today the universe matches your depth. A soul-level connection stirs.",
+      "What you feel for someone is real and powerful. Today gives you the moment to let them know.",
+      "A transformative shift in love is unfolding. What once felt uncertain now reveals itself as meant to be.",
+      "Your ability to see into people's souls is rare. Today, someone lets you see all the way in — and trusts you with it.",
+      "Vulnerability is your deepest form of power. Today, letting someone see your heart creates an unbreakable bond.",
+      "A romantic situation that has been complex begins to untangle itself beautifully today.",
+      "You are magnetic beyond measure right now. The pull between you and someone significant is undeniable.",
+      "Pluto stirs transformation in your love life today. What changes is something you'll be grateful for.",
+      "You see through people — and today, someone is grateful you see them fully and still choose them.",
+      "The depth you crave in love isn't too much to ask for. Today proves it exists.",
+      "An old wound around love quietly heals. Something opens that has been closed for a long time.",
+      "The intensity between you and someone reaches a beautiful peak today. Don't look away.",
+      "You've been testing someone — consciously or not. Today, they pass.",
+      "Love isn't a power struggle when you truly trust. Today, you trust — and it feels like freedom.",
+      "Something unspoken between you and someone is finally ready to be said. Tonight is the moment.",
+      "Your passion is a river, not a flood, today. Deep, moving, and irresistible.",
+    ],
+    tips:[
+      "Have the honest, deep conversation you've been holding back. Scorpio depth creates true intimacy.",
+      "Create a private, intense moment — candlelit, music, just the two of you. You thrive in depth.",
+      "Trust the person who has consistently shown up for you. They mean it.",
+      "Channel your passion into an act of love — write something, create something, confess something.",
+      "Let go of the power struggle in one relationship. Surrender can be the most profound act of trust.",
+      "Protect your energy — invest it only where it is genuinely reciprocated.",
+      "Practice radical honesty with someone you love today. The truth deepens what's real.",
+    ],
+    tipEmojis:['💬','🕯️','🛡️','✍️','🌊','💜','🔮']
+  },
+  { name:'Sagittarius', emoji:'🏹', symbol:'♐', element:'Fire',  planet:'Jupiter', range:'Nov 22–Dec 21',
+    colors:['Cobalt Blue','Deep Purple','Turquoise','Warm Gold'],
+    messages:[
+      "Love is an adventure for you, Sagittarius — and today the universe sends you something that makes your heart race.",
+      "Your freedom-loving spirit is your most attractive quality. Today, someone finds your independence irresistible.",
+      "An unexpected connection formed through shared excitement or travel becomes something that matters deeply.",
+      "Your honesty and optimism in love create a safe space others long for. Today, someone recognizes that gift.",
+      "A love that gives you space to grow is the only kind worth having. Today brings evidence it exists.",
+      "Say something bold and true to someone today. Your directness lands as intimacy, not pressure.",
+      "Joy is magnetic. The more you enjoy your own life today, the more love naturally flows toward you.",
+      "Jupiter expands everything it touches — including your heart. Today, love feels bigger and more possible.",
+      "The best love story you'll ever tell began with saying yes to something unexpected. Today could be that yes.",
+      "You love with your whole self or not at all. Today you meet someone who respects exactly that.",
+      "Your laughter is one of your most powerful romantic assets. Let it out freely today.",
+      "A philosophical conversation becomes unexpectedly intimate. You both feel it at the same moment.",
+      "You don't need to choose between love and freedom — today shows you how beautifully they coexist.",
+      "An honest compliment you give today lands as one of the most meaningful things someone's ever heard.",
+      "The optimism you carry is contagious. Someone falls a little in love with how you see the world.",
+      "Adventure doesn't have to be far away. Today, depth is found right where you are.",
+    ],
+    tips:[
+      "Plan an adventure — even a small one — with someone you care about. Shared excitement creates bonds.",
+      "Tell someone something bold and true about how you feel. Your honesty is your superpower.",
+      "Say yes to an unexpected invitation today. Your best romantic story starts with a spontaneous yes.",
+      "Share a dream or big vision with someone — letting people into your inner world is intimacy.",
+      "Move your body joyfully — a run, a dance, a hike. Vitality is deeply attractive.",
+      "Laugh freely and often today. Your joy is contagious and magnetic.",
+      "Give someone the freedom to be exactly who they are. It's your greatest act of love.",
+    ],
+    tipEmojis:['🗺️','💬','✈️','✨','💃','😂','🕊️']
+  },
+  { name:'Capricorn',   emoji:'🐐', symbol:'♑', element:'Earth', planet:'Saturn',  range:'Dec 22–Jan 19',
+    colors:['Charcoal Grey','Deep Forest','Rich Navy','Cool Silver'],
+    messages:[
+      "A love built on mutual respect and shared ambition is the only kind that truly satisfies you, Capricorn — and today you see it clearly.",
+      "Your steadiness and reliability are profound acts of love. Someone feels deeply safe with you right now.",
+      "The relationship you've been carefully and patiently building shows its first beautiful bloom today.",
+      "Saturn rewards commitment — and today, your consistent devotion to someone is quietly witnessed and deeply felt.",
+      "Love that has passed the test of time is your greatest treasure. Today deepens one such bond.",
+      "Someone who has been watching you admires your strength and grace. They're about to say so.",
+      "Opening your heart doesn't make you less strong, Capricorn. Today, someone earns the privilege of seeing your tenderness.",
+      "You build things that last — including love. Today, the foundation you've laid reveals itself as solid and true.",
+      "Your ambition is attractive. Someone admires not just your drive, but the person you are while pursuing it.",
+      "A quiet, intentional moment with someone today says more than any grand declaration could.",
+      "The walls you built were necessary once. Today, the right person helps you take one down gently.",
+      "Love on your terms — steady, loyal, enduring — is the most romantic kind. Someone knows this.",
+      "Something shifts in a relationship today. The shift is forward, and it feels exactly right.",
+      "Your loyalty is a love language. Someone is fluent in it and grateful beyond words.",
+      "A goal you've been working toward and a person you've been caring for align beautifully today.",
+      "Real love doesn't ask you to be less serious. It joins you in what matters and makes it lighter.",
+    ],
+    tips:[
+      "Plan something thoughtful and future-oriented with someone you love — it shows you see them in your long term.",
+      "Tell someone you're committed to them — in whatever way feels right. Consistency is romantic.",
+      "Dress in something polished and confident today — you attract who you feel like.",
+      "Create an experience rather than just giving a gift — shared memories are your deepest love currency.",
+      "Let someone support you today. Receiving care gracefully is a form of intimacy.",
+      "Schedule a meaningful one-on-one conversation with someone important to you.",
+      "Acknowledge a relationship milestone, even a quiet one. Gratitude deepens love.",
+    ],
+    tipEmojis:['🗓️','💍','👗','🎭','🤝','💬','🌿']
+  },
+  { name:'Aquarius',    emoji:'🏺', symbol:'♒', element:'Air',   planet:'Uranus',  range:'Jan 20–Feb 18',
+    colors:['Electric Blue','Vibrant Turquoise','Violet Dream','Bright Silver'],
+    messages:[
+      "Your uniqueness is your greatest romantic gift, Aquarius. Today, someone finds your unconventional mind completely captivating.",
+      "A meeting of minds is the deepest form of love for you — and today, that rare intellectual and emotional resonance arrives.",
+      "A connection that began as friendship reveals itself today as something profoundly more significant.",
+      "Love, for you, must allow freedom — and today the universe sends someone who understands that completely.",
+      "Your visionary spirit inspires those around you. Someone is drawn to your light more than you realize.",
+      "An unexpected, unconventional romantic moment today becomes a story you'll tell for years.",
+      "Share your real thoughts and values with someone today. Your authentic worldview is deeply attractive.",
+      "Uranus sparks the unexpected in love today. Whatever happens, it will be interesting.",
+      "You are drawn to the people others overlook — and today, that beautiful instinct leads you somewhere meaningful.",
+      "Love that evolves with you is the only kind worth having. Today, you see it growing.",
+      "Your mind is the most intimate part of you. Someone earns access to it today.",
+      "An act of genuine originality in love — something only you would think to do — creates a memory today.",
+      "The connection you value most is the one where you never have to pretend. Today, that connection deepens.",
+      "Someone surprises you in a way that reminds you why you believe in people.",
+      "You give others permission to be themselves just by being so fully yourself. Today, that gift returns to you.",
+      "A conversation about something that truly matters turns into one of the best moments of your week.",
+    ],
+    tips:[
+      "Connect over a shared cause or interest — your deepest bonds form around shared values.",
+      "Share your most unconventional idea with someone — the right person will be fascinated, not confused.",
+      "Suggest something completely different for a date — your creativity in romance is your superpower.",
+      "Give someone space while making it clear you care — the balance is your signature.",
+      "Be fully present in one conversation today. Aquarius connection starts in the mind.",
+      "Wear something that expresses your individuality — your authentic style is magnetic.",
+      "Reach out to a friend who may be more than a friend. Today's energy supports that truth.",
+    ],
+    tipEmojis:['🌐','💡','🎲','🕊️','👁️','💙','📱']
+  },
+  { name:'Pisces',      emoji:'🐟', symbol:'♓', element:'Water', planet:'Neptune', range:'Feb 19–Mar 20',
+    colors:['Seafoam Green','Soft Lavender','Aquamarine','Violet Mist'],
+    messages:[
+      "Your heart is a sanctuary, Pisces — and today someone truly deserving finds their way into it.",
+      "Love that feels like coming home is what your soul seeks. Today, you catch a glimpse of exactly that.",
+      "Your romantic imagination is a portal to real magic. Something you've dreamed of begins to take shape today.",
+      "A soulful, gentle connection today reminds you why you believe in love as deeply as you do.",
+      "Your empathy creates a space where others feel completely seen and safe. Someone falls a little deeper for that today.",
+      "Trust the feeling that has no words yet — your intuition about love is impeccably accurate right now.",
+      "Art, music, and beauty open your heart today. Let them lead you to connection.",
+      "Neptune dissolves what is false and leaves only what is real. What's real in your love life today is beautiful.",
+      "You feel love before it arrives — and that feeling you've been carrying? It's about to be confirmed.",
+      "Your compassion is a form of love that asks for nothing in return — and today, something returns to you anyway.",
+      "A dream you had recently holds a message about love. Let it guide you gently today.",
+      "The most spiritual love is the one that makes you feel less alone in the world. Today you feel it.",
+      "You don't just fall in love — you merge. Today you meet someone willing to meet you all the way.",
+      "Something melts today — a misunderstanding, a distance, a quiet fear. What remains is warmth.",
+      "Your romantic soul deserves a love that believes in magic too. Today, that person appears.",
+      "You've been pouring love outward for so long. Today the tide turns and love flows back in.",
+    ],
+    tips:[
+      "Create a romantic moment through music, candlelight, or art — Pisces love is deeply sensory.",
+      "Write a heartfelt note to someone you love — your written words carry unusual power.",
+      "Share a dream you had about the future — vulnerability through vision is your love language.",
+      "Spend time near water to restore and open your heart before connecting with someone.",
+      "Trust your first impression of someone today — your instincts read people beautifully.",
+      "Set a gentle boundary in love today — protecting your heart is an act of self-love.",
+      "Let yourself daydream about what you truly want in love — then take one small step toward it.",
+    ],
+    tipEmojis:['🎵','✉️','🔮','🌊','✨','🛡️','🌙']
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// COMPATIBILITY BASE MATRIX  [mySign][theirSign]
+// 0=Ari 1=Tau 2=Gem 3=Can 4=Leo 5=Vir 6=Lib 7=Sco 8=Sag 9=Cap 10=Aqu 11=Pis
+// Element affinities: Fire+Air=great, Earth+Water=great, same element=good-ish
+// ═══════════════════════════════════════════════════════
+const COMPAT = [
+//  AR   TA   GE   CA   LE   VI   LI   SC   SA   CP   AQ   PI
+  [ 65,  48,  82,  42,  82,  46,  76,  40,  85,  38,  80,  52], // Aries
+  [ 48,  68,  52,  86,  40,  90,  54,  80,  44,  88,  38,  82], // Taurus
+  [ 82,  52,  65,  48,  84,  38,  92,  46,  80,  42,  90,  40], // Gemini
+  [ 42,  86,  48,  68,  44,  84,  38,  92,  40,  80,  44,  90], // Cancer
+  [ 82,  40,  84,  44,  68,  48,  86,  38,  92,  40,  80,  44], // Leo
+  [ 46,  90,  38,  84,  48,  65,  46,  86,  40,  92,  42,  80], // Virgo
+  [ 76,  54,  92,  38,  86,  46,  68,  46,  86,  40,  90,  44], // Libra
+  [ 40,  80,  46,  92,  38,  86,  46,  68,  44,  84,  38,  92], // Scorpio
+  [ 85,  44,  80,  40,  92,  40,  86,  44,  65,  48,  86,  38], // Sagittarius
+  [ 38,  88,  42,  80,  40,  92,  40,  84,  48,  68,  46,  86], // Capricorn
+  [ 80,  38,  90,  44,  80,  42,  90,  38,  86,  46,  65,  48], // Aquarius
+  [ 52,  82,  40,  90,  44,  80,  44,  92,  38,  86,  48,  68], // Pisces
+];
+
+const TIMES  = ['Dawn','Morning','Noon','Afternoon','Golden Hour','Evening','Night'];
+const LEVELS = [
+  {min:85,label:'Radiant ✨'},{min:70,label:'Glowing 🌟'},
+  {min:55,label:'Balanced ⭐'},{min:40,label:'Gentle 🌙'},{min:0,label:'Rest Day 🌿'}
+];
+
+// Universal daily insights — picked independently from the sign message for extra variety
+const DAILY_INSIGHTS = [
+  "The energy you put out today comes back to you amplified. Make it warm.",
+  "Love isn't always loud. Sometimes the quietest moments are the ones that last forever.",
+  "One genuine smile today opens more doors than a hundred carefully planned moves.",
+  "The stars are conspiring in your favour right now — trust the current.",
+  "You are more ready for love than you think. The hesitation is the only thing to let go of.",
+  "What feels like a small connection today may be the beginning of something enormous.",
+  "The right people don't make you earn your place — they save it for you.",
+  "Your vibe is your invitation. What are you inviting in today?",
+  "Something you've been trying to figure out with your head is actually a question for your heart.",
+  "Today holds a moment worth being fully present for. Don't miss it by looking at your phone.",
+  "The love that's right for you will feel like relief, not anxiety.",
+  "You attract what you believe you deserve. Believe bigger today.",
+  "A person who makes you feel seen — truly seen — is worth every bit of effort.",
+  "Sometimes the bravest thing is just showing up as exactly who you are.",
+  "Pay attention to who makes you feel lighter just by being near them.",
+  "The universe has a habit of delivering what you need in unexpected packages.",
+  "Let today be the day you stop waiting for permission to want what you want.",
+  "Chemistry is interesting but character is everything. Trust what you see over time.",
+  "The best conversations are the ones that make you forget what time it is.",
+  "Love yourself the way you love your favourite people — generously and without conditions.",
+  "An open heart is not a naive heart. It's a brave one.",
+  "Something is aligning behind the scenes that you can't quite see yet. Trust the process.",
+  "The moment you stop pretending, the right people get a lot closer.",
+  "A little mystery is magnetic. Not everything needs to be explained right away.",
+  "The energy between two people who are honest with each other is electric.",
+  "You deserve a love that doesn't make you shrink yourself to fit.",
+  "Kindness is deeply attractive. Lead with it today.",
+  "Real love isn't about finding a perfect person — it's about seeing someone clearly and choosing them anyway.",
+  "Your presence is a gift. Some people are only just beginning to understand that.",
+  "The things you think are too much are exactly right for the person meant for you.",
+  "What you put your attention on today, grows. Put it somewhere worth growing.",
+  "A quiet act of love today goes further than you know.",
+  "The stars are not making decisions for you — they're clearing the path. You still have to walk it.",
+  "Let someone surprise you today. Expectation is the enemy of wonder.",
+  "You are in the middle of a story that is still being written. Today is a good chapter.",
+  "The love that requires you to change who you are is not the love that's meant for you.",
+  "There is someone thinking about reaching out to you. Maybe today they will.",
+  "Being easy to love starts with being easy with yourself.",
+  "Today's small moment of connection matters more than any grand romantic gesture.",
+  "Trust the timing. Not everything is late — some things are just right on time.",
+  "Your energy speaks before you do. Walk into today's moments with intention.",
+  "The right kind of love makes your ordinary days feel like something worth celebrating.",
+  "You already know what to do. You're just deciding whether to do it.",
+  "Something that felt blocked is about to move. The shift starts today.",
+  "Beautiful things happen when you stop bracing for disappointment.",
+];
+
+// ═══════════════════════════════════════════════════════
+// SEEDED RNG  (FNV-inspired)
+// ═══════════════════════════════════════════════════════
+function hash(str){
+  let h=2166136261>>>0;
+  for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}
+  return h;
+}
+function rng(seed,idx){
+  let s=(seed+Math.imul(idx,2654435761))>>>0;
+  s=(Math.imul(s^(s>>>16),0x45d9f3b))>>>0;
+  s=(Math.imul(s^(s>>>16),0x45d9f3b))>>>0;
+  return((s^(s>>>16))>>>0)/4294967295;
+}
+function dailySeed(si){
+  const d=new Date();
+  return hash(`${si}_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`);
+}
+function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+
+// ═══════════════════════════════════════════════════════
+// ZODIAC DETECTION
+// ═══════════════════════════════════════════════════════
+function getSignIndex(m,d){
+  m=+m;d=+d;
+  if((m===3&&d>=21)||(m===4&&d<=19))return 0;
+  if((m===4&&d>=20)||(m===5&&d<=20))return 1;
+  if((m===5&&d>=21)||(m===6&&d<=20))return 2;
+  if((m===6&&d>=21)||(m===7&&d<=22))return 3;
+  if((m===7&&d>=23)||(m===8&&d<=22))return 4;
+  if((m===8&&d>=23)||(m===9&&d<=22))return 5;
+  if((m===9&&d>=23)||(m===10&&d<=22))return 6;
+  if((m===10&&d>=23)||(m===11&&d<=21))return 7;
+  if((m===11&&d>=22)||(m===12&&d<=21))return 8;
+  if((m===12&&d>=22)||(m===1&&d<=19))return 9;
+  if((m===1&&d>=20)||(m===2&&d<=18))return 10;
+  return 11;
+}
+
+// ═══════════════════════════════════════════════════════
+// COMPATIBILITY NOTE
+// ═══════════════════════════════════════════════════════
+function compatNote(score,seed,ti){
+  const HIGH=[
+    "A rare cosmic alignment — don't let it pass",
+    "Hearts speak the same language today",
+    "Magnetic pull — something beautiful awaits",
+    "The universe is writing your story together",
+    "Pure magic when you two connect today",
+    "Chemistry that's hard to explain, impossible to ignore",
+  ];
+  const GOOD=[
+    "Warm chemistry and genuine connection",
+    "Easy laughter and shared moments today",
+    "Beautiful potential yours to unlock",
+    "A quiet but powerful pull between you",
+    "Their energy complements yours perfectly",
+  ];
+  const MID=[
+    "With an open heart, sparks can still fly",
+    "Unexpected moments of understanding await",
+    "Common ground is there — reach for it",
+    "Different rhythms that can find harmony",
+  ];
+  const LOW=[
+    "Different energies today — stay gentle",
+    "Give this connection space to breathe",
+    "Better timing lies just ahead",
+  ];
+  const VLOW=[
+    "The stars suggest focusing on yourself today",
+    "Protect your peace — challenging energy",
+    "Not the best cosmic moment for this one",
+  ];
+  const pick=(arr)=>arr[Math.floor(rng(seed,50+ti)*arr.length)];
+  if(score>=82)return pick(HIGH);
+  if(score>=68)return pick(GOOD);
+  if(score>=52)return pick(MID);
+  if(score>=38)return pick(LOW);
+  return pick(VLOW);
+}
+
+// ═══════════════════════════════════════════════════════
+// DAILY COMPATIBILITY SCORES  (sorted best→worst)
+// ═══════════════════════════════════════════════════════
+function getDailyCompat(si,seed){
+  return SIGNS.map((_,ti)=>{
+    const base=COMPAT[si][ti];
+    const v=(rng(seed,40+ti)-0.5)*26; // ±13 pts daily variance
+    const score=Math.round(clamp(base+v, 10, 99));
+    return {ti, score, isSelf:ti===si, note:compatNote(score,seed,ti)};
+  }).sort((a,b)=>b.score-a.score);
+}
+
+// ═══════════════════════════════════════════════════════
+// OVERALL LUCK SCORE
+// ═══════════════════════════════════════════════════════
+function genScore(seed,idx){
+  const r=rng(seed,idx);
+  if(r<0.25)return Math.round(75+(r/0.25)*25);
+  if(r<0.75)return Math.round(55+((r-0.25)/0.50)*20);
+  return Math.round(38+((r-0.75)/0.25)*17);
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER RANKING LIST
+// ═══════════════════════════════════════════════════════
+function renderRanking(compat, si){
+  const list=document.getElementById('rank-list');
+  list.innerHTML='';
+
+  compat.forEach((item,rank)=>{
+    const s=SIGNS[item.ti];
+
+    // tier dividers
+    if(rank===3){
+      const div=document.createElement('div');
+      div.className='tier-divider';
+      div.textContent='─── Good Energy ───';
+      list.appendChild(div);
+    }
+    if(rank===9){
+      const div=document.createElement('div');
+      div.className='tier-divider';
+      div.textContent='─── Challenging Today ───';
+      list.appendChild(div);
+    }
+
+    // rank class
+    let itemClass='rank-item';
+    if(rank<3)          itemClass+=' rank-top';
+    else if(rank<9)     itemClass+=' rank-good';
+    else                itemClass+=' rank-low';
+    if(item.isSelf)     itemClass+=' rank-self';
+
+    // rank badge
+    let numClass='rank-num ',numText=`#${rank+1}`;
+    if(rank===0)      numClass+='gold';
+    else if(rank===1) numClass+='silver';
+    else if(rank===2) numClass+='bronze';
+    else              numClass+='normal';
+
+    // bar fill class
+    let fillClass='rank-bar-fill ';
+    if(rank<3)        fillClass+='fill-gold';
+    else if(rank<6)   fillClass+='fill-good';
+    else if(rank<9)   fillClass+='fill-mid';
+    else              fillClass+='fill-low';
+
+    const selfTag=item.isSelf?'<span style="font-size:10px;opacity:0.7;"> · You</span>':'';
+
+    const row=document.createElement('div');
+    row.className=itemClass;
+    row.innerHTML=`
+      <div class="${numClass}">${numText}</div>
+      <div class="rank-emoji">${s.emoji}</div>
+      <div class="rank-info">
+        <div class="rank-name">${s.name}${selfTag}</div>
+        <div class="rank-note">${item.note}</div>
+      </div>
+      <div class="rank-score-col">
+        <div class="rank-score-num" id="rscore-${rank}">${item.score}</div>
+        <div class="rank-bar-track"><div class="${fillClass}" id="rbar-${rank}" style="width:0%"></div></div>
+      </div>`;
+    list.appendChild(row);
+  });
+
+  // animate bars after a short delay
+  setTimeout(()=>{
+    compat.forEach((_,rank)=>{
+      setTimeout(()=>{
+        const bar=document.getElementById(`rbar-${rank}`);
+        if(bar) bar.style.width=compat[rank].score+'%';
+      }, rank*45);
+    });
+  },400);
+}
+
+// ═══════════════════════════════════════════════════════
+// MAIN — REVEAL
+// ═══════════════════════════════════════════════════════
+function revealLuck(){
+  const month=$('sel-month').value, day=$('sel-day').value;
+  if(!month||!day){showToast('Please enter your birthday 💕');return;}
+  localStorage.setItem('lg_bd',JSON.stringify({month,day}));
+
+  const si=getSignIndex(month,day);
+  const sign=SIGNS[si];
+  const seed=dailySeed(si);
+
+  // Overall luck scores
+  const overall=genScore(seed,0);
+  const love   =clamp(Math.round(overall+(rng(seed,1)-0.5)*32),25,100);
+  const money  =clamp(Math.round(overall+(rng(seed,2)-0.5)*32),25,100);
+  const career =clamp(Math.round(overall+(rng(seed,3)-0.5)*32),25,100);
+  const health =clamp(Math.round(overall+(rng(seed,4)-0.5)*32),25,100);
+
+  // Compatibility ranking
+  const compat=getDailyCompat(si,seed);
+  const top=compat[0];
+  const topSign=SIGNS[top.ti];
+
+  // Lucky picks
+  const color  =sign.colors[Math.floor(rng(seed,5)*sign.colors.length)];
+  const num    =Math.floor(rng(seed,6)*9)+1;
+  const time   =TIMES[Math.floor(rng(seed,7)*TIMES.length)];
+  const msgIdx     =Math.floor(rng(seed,8)*sign.messages.length);
+  const tipIdx     =Math.floor(rng(seed,9)*sign.tips.length);
+  const insightIdx =Math.floor(rng(seed,10)*DAILY_INSIGHTS.length);
+  const level  =LEVELS.find(l=>overall>=l.min).label;
+
+  const ds=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Fill DOM
+  $('z-emoji').textContent  =sign.emoji;
+  $('z-name').textContent   =sign.name;
+  $('z-meta').textContent   =`${sign.symbol} ${sign.range}  ·  ${sign.element} · ${sign.planet}`;
+  $('z-date').textContent   =ds;
+  $('luck-level').textContent=level;
+
+  // Hero card
+  $('hero-emoji').textContent   =topSign.emoji;
+  $('hero-name').textContent    =topSign.name;
+  $('hero-sub').textContent     =`${topSign.symbol} ${topSign.range}`;
+  $('hero-note').textContent    =top.note;
+  $('hero-score-num').textContent='0';
+  $('hero-self-badge').style.display=top.isSelf?'inline-block':'none';
+
+  // Lucky charms
+  $('lc-sign').textContent  =topSign.name;
+  $('lc-color').textContent =color;
+  $('lc-number').textContent=num;
+  $('lc-time').textContent  =time;
+
+  // Message + tip
+  $('daily-msg').textContent=sign.messages[msgIdx];
+  $('daily-insight').textContent=DAILY_INSIGHTS[insightIdx];
+  $('tip-emoji').textContent=sign.tipEmojis[tipIdx];
+  $('daily-tip').textContent=sign.tips[tipIdx];
+
+  // Render ranking
+  renderRanking(compat, si);
+
+  // Swap screens
+  $('screen-landing').style.display='none';
+  $('screen-reading').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  requestAnimationFrame(()=>{
+    setTimeout(()=>animate(overall,love,money,career,health,top.score),280);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// ANIMATE
+// ═══════════════════════════════════════════════════════
+function animate(overall,love,money,career,health,heroScore){
+  // gauge (r=62, C≈389.6)
+  $('gauge-arc').style.strokeDashoffset=389.6*(1-overall/100);
+  countUp('gauge-num',0,overall,1500);
+
+  // hero score
+  countUp('hero-score-num',0,heroScore,1400);
+  setTimeout(()=>{ $('hero-score-fill').style.width=heroScore+'%'; },100);
+
+  // luck bars
+  [['bar-love','sc-love',love],['bar-money','sc-money',money],
+   ['bar-career','sc-career',career],['bar-health','sc-health',health]]
+  .forEach(([bar,sc,v],i)=>{
+    setTimeout(()=>{
+      $(bar).style.width=v+'%';
+      $(sc).textContent=v+'/100';
+    },200+i*130);
+  });
+}
+
+function countUp(id,from,to,ms){
+  const el=$(id); const t0=performance.now();
+  (function tick(now){
+    const p=Math.min((now-t0)/ms,1), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(from+(to-from)*e);
+    if(p<1)requestAnimationFrame(tick);
+  })(t0);
+}
+
+// ═══════════════════════════════════════════════════════
+// SHARE SYSTEM
+// ═══════════════════════════════════════════════════════
+
+function shareReading(){
+  const mySign  = $('z-name').textContent;
+  const topSign = $('hero-name').textContent;
+  const score   = $('hero-score-num').textContent;
+  const text    = `💕 I'm ${mySign} and my #1 love match today is ${topSign} — ${score}/100! ✨ Get your free daily reading 👉 ${location.href}`;
+  if(navigator.share){
+    navigator.share({title:'My LuckyGlow Love Reading', text, url:location.href}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text)
+      .then(()=>showToast('Copied! Share it with your friends 💕'))
+      .catch(()=>showToast('Share your reading with friends! ✨'));
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// RESET
+// ═══════════════════════════════════════════════════════
+function resetToLanding(){
+  $('screen-reading').style.display='none';
+  $('screen-landing').style.display='block';
+  $('gauge-arc').style.strokeDashoffset='389.6';
+  $('gauge-num').textContent='0';
+  $('luck-level').textContent='Reading your stars…';
+  $('hero-score-num').textContent='0';
+  $('hero-score-fill').style.width='0%';
+  ['love','money','career','health'].forEach(k=>{
+    $('bar-'+k).style.width='0%';
+    $('sc-'+k).textContent='—';
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════════════════════════════════════════════
+// POPULATE SELECTS
+// ═══════════════════════════════════════════════════════
+function populateSelects(){
+  const dayEl=$('sel-day');
+  for(let d=1;d<=31;d++){const o=document.createElement('option');o.value=d;o.textContent=d;dayEl.appendChild(o);}
+}
+
+// ═══════════════════════════════════════════════════════
+// RESTORE SAVED BIRTHDAY
+// ═══════════════════════════════════════════════════════
+function restoreSaved(){
+  try{
+    const s=JSON.parse(localStorage.getItem('lg_bd'));
+    if(s){$('sel-month').value=s.month;$('sel-day').value=s.day;}
+  }catch(_){}
+}
+
+// ═══════════════════════════════════════════════════════
+// STARS
+// ═══════════════════════════════════════════════════════
+function buildStars(){
+  const w=$('stars');
+  for(let i=0;i<55;i++){
+    const s=document.createElement('div'); s.className='star';
+    const sz=Math.random()*3.5+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--op:${0.2+Math.random()*0.4};animation-delay:${Math.random()*5}s`;
+    w.appendChild(s);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════
+function showToast(msg){
+  const t=$('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function $(id){return document.getElementById(id);}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+populateSelects();
+buildStars();
+restoreSaved();
+</script>
+</body>
+</html>
