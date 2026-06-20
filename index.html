@@ -1136,7 +1136,6 @@ function renderRanking(compat, si){
 function revealLuck(){
   const month=$('sel-month').value, day=$('sel-day').value;
   if(!month||!day){showToast('Please enter your birthday 💕');return;}
-  localStorage.setItem('lg_bd',JSON.stringify({month,day}));
 
   const si=getSignIndex(month,day);
   const sign=SIGNS[si];
@@ -1307,14 +1306,6 @@ function populateSelects(){
 }
 
 // ═══════════════════════════════════════════════════════
-// RESTORE SAVED BIRTHDAY
-// ═══════════════════════════════════════════════════════
-function restoreSaved(){
-  try{
-    const s=JSON.parse(localStorage.getItem('lg_bd'));
-    if(s){$('sel-month').value=s.month;$('sel-day').value=s.day;}
-  }catch(_){}
-}
 
 // ═══════════════════════════════════════════════════════
 // STARS
@@ -1344,7 +1335,6 @@ function $(id){return document.getElementById(id);}
 // ═══════════════════════════════════════════════════════
 populateSelects();
 buildStars();
-restoreSaved();
 
 // Auto-run reading if URL contains ?month=&day= (shared link)
 (function(){
